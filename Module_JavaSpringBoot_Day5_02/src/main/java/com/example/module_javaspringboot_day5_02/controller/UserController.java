@@ -1,6 +1,7 @@
 package com.example.module_javaspringboot_day5_02.controller;
 
 import com.example.module_javaspringboot_day5_02.dto.ClientDTO;
+import com.example.module_javaspringboot_day5_02.dto.ClientProductDTO;
 import com.example.module_javaspringboot_day5_02.dto.ProductDTO;
 import com.example.module_javaspringboot_day5_02.dto.UserDTO;
 import com.example.module_javaspringboot_day5_02.repository.IClientProductRepository;
@@ -8,6 +9,8 @@ import com.example.module_javaspringboot_day5_02.service.ICategoryService;
 import com.example.module_javaspringboot_day5_02.service.IProductService;
 import com.example.module_javaspringboot_day5_02.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,8 +45,8 @@ public class UserController {
             int id_user = (int) session.getAttribute("UserLogin");
             model.addAttribute("userName",iUserService.findById(id_user).get().getUsername());
         }
-
-        model.addAttribute("listProduct",iProductService.findAll());
+        Pageable pageable = PageRequest.of(1,3);
+        model.addAttribute("listProduct",iProductService.findAllProduct(1,3));
         model.addAttribute("listCategory",iCategoryService.findAll());
         return "home";
     }
@@ -135,9 +138,10 @@ public class UserController {
     @GetMapping("/payment")
     public String payment2(){
 //        iClientProductRepository.findByName(1);
-        ClientDTO clientDTO = iClientProductRepository.findByName(1);
-        System.out.println();
-        System.out.println(iClientProductRepository.findByName(1).toString());
+        ClientProductDTO clientDTO = iClientProductRepository.findByName(1);
+        Object obj = iClientProductRepository.findÌnorCheckoutByIdBill(1);
+        System.out.println(obj.toString());
+//        System.out.println(iClientProductRepository.findByName(1).toString());
         return "home";
     }
 

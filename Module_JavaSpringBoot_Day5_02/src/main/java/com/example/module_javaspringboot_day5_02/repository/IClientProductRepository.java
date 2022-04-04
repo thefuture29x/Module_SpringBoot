@@ -15,4 +15,10 @@ public interface IClientProductRepository extends CrudRepository<ClientProductDT
             " WHERE cp.id = :id")
     ClientProductDTO findByName(@Param("id") int id);
 
+    @Query(value = " SELECT cl.name,pr.name,cl.total,cl.address FROM client_product cp " +
+            " JOIN client cl ON cl.id = cp.id_client " +
+            " JOIN product pr ON pr.id = cp.id_product " +
+            " WHERE cp.id = :id")
+    Object findÌnorCheckoutByIdBill(@Param("id") int id);
+
 }

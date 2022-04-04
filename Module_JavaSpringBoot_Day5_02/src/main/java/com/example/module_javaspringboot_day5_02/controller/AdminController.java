@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -36,7 +37,7 @@ public class AdminController {
     IUserService iUserService;
 
     @GetMapping("/list")
-    public String getHomePage(Model model,HttpSession session){
+    public String getHomePage(Model model,HttpSession session,@RequestParam("page") int page, @RequestParam("limit") int limit){
         if (session.getAttribute("UserLogin") == null){
             model.addAttribute("userName","Anonymous");
 
@@ -44,7 +45,22 @@ public class AdminController {
             int id_user = (int) session.getAttribute("UserLogin");
             model.addAttribute("userName",iUserService.findById(id_user).get().getUsername());
         }
-        model.addAttribute("listProduct",iProductService.findAll());
+
+        if (page == 0){
+            page = 1;
+        }
+        if (limit == 0){
+            limit = 5;
+        }
+        List<ProductDTO> dtoList = (List<ProductDTO>) iProductService.findAll();
+        int totalItems  = dtoList.size();
+        int totalPage = (int) Math.ceil((double) totalItems / limit);
+        int offset = (page - 1)*limit;
+
+        model.addAttribute("page",page);
+        model.addAttribute("limit",limit);
+        model.addAttribute("totalPage",totalPage);
+        model.addAttribute("listProduct",iProductService.findAllProduct(offset,limit));
         model.addAttribute("listCategory",iCategoryService.findAll());
         return "list_product";
     }

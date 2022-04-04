@@ -10,6 +10,15 @@ public class ClientProductDTO {
     private int id_user;
     private int id_product;
 
+    @Override
+    public String toString() {
+        return "ClientProductDTO{" +
+                "id=" + id +
+                ", id_user=" + id_user +
+                ", id_product=" + id_product +
+                '}';
+    }
+
     public ClientProductDTO() {
     }
 
