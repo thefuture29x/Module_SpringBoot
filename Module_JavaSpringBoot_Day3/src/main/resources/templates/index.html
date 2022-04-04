@@ -10,13 +10,28 @@
 <div th:include="/fragement/fragement.html">
 
 </div>
+<!--<div th:include="::nav-fragment(Home1,Link1)">-->
+
+<!--</div>-->
+
 <div class="container">
     <div class="jumbotron">
         <h1 class="display-4">Hello, world!</h1>
         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <form action="uploadfile" method="post" enctype="multipart/form-data">
+            <div class="input-group mb-3">
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="fileImage">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+
     </div>
 </div>
 

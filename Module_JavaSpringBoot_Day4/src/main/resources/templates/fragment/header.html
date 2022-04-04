@@ -1,0 +1,40 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="container-fluid">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark ">
+
+            <ul class="navbar-nav" th:if="${userName == 'Anonymous'}">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:text="${userName}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" th:if="${userName != 'Anonymous'}">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/cart}">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:text="${userName}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Log out</a>
+                </li>
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/search}" method="post" style="float: right">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+    </header>
+</div>
+</html>
