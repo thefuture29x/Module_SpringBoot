@@ -6,15 +6,9 @@ import javax.persistence.Id;
 public class StudentEntity {
     private int id;
     private String name;
-    private int address;
+    private ClassRoomEntity address;
 
     public StudentEntity() {
-    }
-
-    public StudentEntity(int id, String name, int address) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
     }
 
     public int getId() {
@@ -33,11 +27,26 @@ public class StudentEntity {
         this.name = name;
     }
 
-    public int getAddress() {
+    public StudentEntity(int id, String name, ClassRoomEntity address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+    }
+
+    public ClassRoomEntity getAddress() {
         return address;
     }
 
-    public void setAddress(int address) {
+    public void setAddress(ClassRoomEntity address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                '}';
     }
 }

@@ -1,23 +1,18 @@
 package com.haiphong.entity;
 
+import java.util.List;
+
 public class ClassRoomEntity {
-    private Long id;
+    private Integer id;
     private String nameClass;
+//    private List<StudentEntity> stus;
+    public ClassRoomEntity(){}
 
-
-    public ClassRoomEntity() {
-    }
-
-    public ClassRoomEntity(Long id, String nameClass) {
-        this.id = id;
-        this.nameClass = nameClass;
-    }
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -27,5 +22,16 @@ public class ClassRoomEntity {
 
     public void setNameClass(String nameClass) {
         this.nameClass = nameClass;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "ClassRoomEntity{" +
+                "id=" + id +
+                ", nameClass='" + nameClass + '\'' +
+                ", stus="  +
+                '}';
     }
 }
