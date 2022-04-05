@@ -46,7 +46,7 @@ public class UserController {
             model.addAttribute("userName",iUserService.findById(id_user).get().getUsername());
         }
         Pageable pageable = PageRequest.of(1,3);
-        model.addAttribute("listProduct",iProductService.findAllProduct(1,3));
+        model.addAttribute("listProduct",iProductService.findAll());
         model.addAttribute("listCategory",iCategoryService.findAll());
         return "home";
     }
@@ -138,7 +138,7 @@ public class UserController {
     @GetMapping("/payment")
     public String payment2(){
 //        iClientProductRepository.findByName(1);
-        ClientProductDTO clientDTO = iClientProductRepository.findByName(1);
+//        ClientProductDTO clientDTO = iClientProductRepository.findByName(1);
         Object obj = iClientProductRepository.findÌnorCheckoutByIdBill(1);
         System.out.println(obj.toString());
 //        System.out.println(iClientProductRepository.findByName(1).toString());
