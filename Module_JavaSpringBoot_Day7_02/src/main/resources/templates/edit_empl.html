@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <title>Edit</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+
+</head>
+
+<body>
+
+<!--<div th:replace="/fragment/header"></div>-->
+<div class="container-fluid">
+
+
+    <div class="container-fluid main_body">
+        <div class="row">
+            <div class="col-md-2 left_body">
+            </div>
+            <div class="col-md-10">
+                <h4>Edit Employee</h4><br>
+                    <form enctype="multipart/form-data" th:action="@{/save-update}" method="post" th:object="${employeeEdit}">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" th:field="*{name}" name="name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Phone</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" th:field="*{phone}" name="phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" th:field="*{address}" name="address">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Department</label>
+                            <div class="col-sm-10">
+                                <select class="custom-select" name="id_depart">
+                                    <div th:each="items : ${listDepartment}" >
+                                        <div th:if="${employeeEdit.department.id == items.id}">
+                                            <option th:text="${items.name}" th:value="${items.id}" selected></option>
+                                        </div>
+                                        <div th:unless="${employeeEdit.department.id == items.id}">
+                                            <option th:text="${items.name}" th:value="${items.id}"></option>
+                                        </div>
+                                    </div>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Position</label>
+                            <div class="col-sm-10">
+                                <select class="custom-select" name="id_post">
+                                    <div th:each="items : ${listPosition}" >
+                                        <div th:if="${employeeEdit.position.id == items.id}">
+                                            <option th:text="${items.name}" th:value="${items.id}" selected></option>
+                                        </div>
+                                        <div th:unless="${employeeEdit.position.id == items.id}">
+                                            <option th:text="${items.name}" th:value="${items.id}"></option>
+                                        </div>
+                                    </div>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" th:field="*{id}" >
+                        <button type="submit" class="btn btn-primary" >Add</button>
+
+                    </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+
+    </div>
+
+</div>
+
+</body>
+</html>

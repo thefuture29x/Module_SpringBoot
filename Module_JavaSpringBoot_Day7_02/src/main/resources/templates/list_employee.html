@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <title>List Employee</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+
+</head>
+
+<body>
+
+<!--<div th:replace="/fragment/header"></div>-->
+<div class="container-fluid">
+
+    <div class="container-fluid main_body">
+        <div class="row">
+            <div class="col-md-2 left_body">
+                <ul>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <h4>List Employee</h4>
+                <form th:action="@{/edit-empl}" method="post">
+                    <button type="submit" class="btn btn-success" value="0" name="id_empl" >Create New</button>
+                </form>
+                <br>
+
+
+                <table class="table table-striped" style="padding: 25px;">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Position</th>
+                        <th scope="col" colspan="3">Tools</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="items : ${listEmployee}">
+                        <td th:text="${items.id}"></td>
+                        <td th:text="${items.name}"></td>
+                        <td th:text="${items.phone}"></td>
+                        <td th:text="${items.address}"></td>
+                        <td th:object="${items.department}">
+                            <p th:text="*{name}"></p>
+                        </td>
+                        <td th:object="${items.position}">
+                            <p th:text="*{name}"></p>
+                        </td>
+                        <td>
+                            <form th:action="@{/logwork-empl}" method="post">
+                                <button type="submit" class="btn btn-success" th:value="${items.id}" name="id_empl" >LogWork</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/edit-empl}" method="post">
+                                <button type="submit" class="btn btn-primary" th:value="${items.id}" name="id_empl" >Edit</button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form th:action="@{/delete-empl}" method="post">
+                                <button type="submit" class="btn btn-danger" th:value="${items.id}" name="id_empl" >Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+
+    </div>
+
+</div>
+
+</body>
+</html>
