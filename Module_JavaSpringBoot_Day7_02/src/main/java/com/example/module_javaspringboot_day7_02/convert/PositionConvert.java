@@ -9,6 +9,7 @@ public class PositionConvert {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setCfc_salary(dto.getCfc_salary());
+        entity.setA_days_wages(dto.getA_days_wages());
         return entity;
     }
 
@@ -17,6 +18,7 @@ public class PositionConvert {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setCfc_salary(entity.getCfc_salary());
+        dto.setA_days_wages(entity.getA_days_wages());
         return dto;
     }
  }

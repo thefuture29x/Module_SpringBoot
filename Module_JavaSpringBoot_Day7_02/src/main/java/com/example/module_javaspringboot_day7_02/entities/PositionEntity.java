@@ -11,6 +11,7 @@ public class PositionEntity {
     private int id;
     private String name;
     private String cfc_salary;
+    private int a_days_wages;
 
     @OneToMany(mappedBy = "empPosition",cascade = CascadeType.PERSIST)
     private List<EmployeeEntity> listEmployee;
@@ -19,11 +20,20 @@ public class PositionEntity {
     public PositionEntity() {
     }
 
-    public PositionEntity(int id, String name, String cfc_salary, List<EmployeeEntity> listEmployee) {
+    public PositionEntity(int id, String name, String cfc_salary, int a_days_wages, List<EmployeeEntity> listEmployee) {
         this.id = id;
         this.name = name;
         this.cfc_salary = cfc_salary;
+        this.a_days_wages = a_days_wages;
         this.listEmployee = listEmployee;
+    }
+
+    public int getA_days_wages() {
+        return a_days_wages;
+    }
+
+    public void setA_days_wages(int a_days_wages) {
+        this.a_days_wages = a_days_wages;
     }
 
     public int getId() {

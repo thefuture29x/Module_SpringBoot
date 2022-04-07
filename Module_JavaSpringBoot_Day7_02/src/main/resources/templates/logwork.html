@@ -51,6 +51,12 @@
                         <td th:text="${items.work_hours}"></td>
                         <td th:text="${items.date_start}"></td>
                     </tr>
+                    <tr>
+                        <td colspan="5" th:text="|Total hours work : ${timeKeeping}|"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" th:text="|Salary: ${timeKeeping*100000}|"></td>
+                    </tr>
                     </tbody>
                 </table>
 

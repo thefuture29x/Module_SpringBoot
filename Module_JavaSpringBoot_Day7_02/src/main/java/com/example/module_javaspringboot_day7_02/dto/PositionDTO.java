@@ -5,14 +5,24 @@ public class PositionDTO {
     private int id;
     private String name;
     private String cfc_salary;
+    private int a_days_wages;
 
     public PositionDTO() {
     }
 
-    public PositionDTO(int id, String name, String cfc_salary) {
+    public int getA_days_wages() {
+        return a_days_wages;
+    }
+
+    public void setA_days_wages(int a_days_wages) {
+        this.a_days_wages = a_days_wages;
+    }
+
+    public PositionDTO(int id, String name, String cfc_salary, int a_days_wages) {
         this.id = id;
         this.name = name;
         this.cfc_salary = cfc_salary;
+        this.a_days_wages = a_days_wages;
     }
 
     public int getId() {

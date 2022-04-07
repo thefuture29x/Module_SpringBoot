@@ -65,6 +65,7 @@ public class ManegerController {
     @PostMapping("/logwork-empl")
     public String getLogWorkEmployee(Model model, @RequestParam(value = "id_empl") int id){
         model.addAttribute("listLogWork",logWorkDAO.getLogWorkOfEmpl(id));
+        model.addAttribute("timeKeeping",logWorkDAO.timekeeping(id));
         return "logwork";
     }
 

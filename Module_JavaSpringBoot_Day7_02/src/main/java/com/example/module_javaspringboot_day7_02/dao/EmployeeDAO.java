@@ -6,11 +6,10 @@ import com.example.module_javaspringboot_day7_02.convert.LogWorkConvert;
 import com.example.module_javaspringboot_day7_02.convert.PositionConvert;
 import com.example.module_javaspringboot_day7_02.dto.EmployeeDTO;
 import com.example.module_javaspringboot_day7_02.dto.LogWorkDTO;
-import com.example.module_javaspringboot_day7_02.entities.DepartmentEntity;
+import com.example.module_javaspringboot_day7_02.dto.SalaryDTO;
 import com.example.module_javaspringboot_day7_02.entities.EmployeeEntity;
-import com.example.module_javaspringboot_day7_02.entities.EmployeeEntity;
-import com.example.module_javaspringboot_day7_02.entities.PositionEntity;
 import com.example.module_javaspringboot_day7_02.util.ConnectDBUtil;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
@@ -33,6 +32,28 @@ public class EmployeeDAO {
         }
         session.close();
         return dtoList;
+    }
+
+    public int getSalaryEmployee(int id_empl){
+        String sql = " SELECT ep.id ,ps.cfc_salary ,ps.a_days_wages ,lw.work_hours FROM EmployeeEntity ep " +
+                " JOIN fetch PositionEntity ps ON ep.empPosition.id = ps.id " +
+                " JOIN fetch LogWorkEntity lw ON ep.id = lw.emp_logwork.id " +
+                " WHERE ep.id = " + id_empl;
+        Session session = ConnectDBUtil.getSessionFactory().openSession();
+        Object newObj = new SalaryDTO();
+//        List manage = ( session.createQuery(sql).list());
+        List manage = ( session.createQuery(sql).list());
+
+        for (int i = 0; i < manage.size(); i++) {
+        }
+        newObj = manage.get(0);
+
+
+        session.close();
+
+
+
+        return 0;
     }
 
     public void saveOrUpdate(EmployeeDTO Employee){
@@ -83,10 +104,12 @@ public class EmployeeDAO {
 //        Employee.setPhone("12312313");
 //        Employee.setEmpDepartment(department);
 //        Employee.setEmpPosition(position);
-////        new EmployeeDAO().getAll();
-////        new EmployeeDAO().saveOrUpdate(Employee);
+//        new EmployeeDAO().getAll();
+//        new EmployeeDAO().saveOrUpdate(Employee);
 //        new EmployeeDAO().delete(Employee);
 //        new EmployeeDAO().findById(1);
+        new EmployeeDAO().getSalaryEmployee(1);
+
 
     }
 

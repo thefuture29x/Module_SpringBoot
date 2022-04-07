@@ -52,6 +52,15 @@ public class LogWorkDAO {
 
         return convert.toDTO(LogWork);
     }
+    public int timekeeping(int id_empl){
+        Session session = ConnectDBUtil.getSessionFactory().openSession();
+        List<LogWorkEntity> entityList = session.createQuery("FROM LogWorkEntity where emp_logwork = " + id_empl).list();
+        int timekeeping = 0;
+        for (int i = 0; i < entityList.size(); i++) {
+            timekeeping += entityList.get(i).getWork_hours();
+        }
+        return timekeeping/8;
+    }
 
     public List<LogWorkDTO> getLogWorkOfEmpl(int id_empl){
         List<LogWorkEntity> entityList = new ArrayList<>();
@@ -77,13 +86,13 @@ public class LogWorkDAO {
         }
 
         LogWork.setId(0);
-        LogWork.setEmp_logwork(convert.toEntity(employeeDAO.findById(2)));
+        LogWork.setEmp_logwork(convert.toEntity(employeeDAO.findById(1)));
         LogWork.setWork_hours(8);
         LogWork.setDescription("08:30 -- 17:00");
 
 //        new LogWorkDAO().saveOrUpdate(LogWork);
 //        new LogWorkDAO().getAll();
-//        new LogWorkDAO().getLogWorkOfEmpl(1);
+        new LogWorkDAO().getLogWorkOfEmpl(1);
 
 //        LogWork.setDate_start();
 //        LogWork.setDate_end(0);
