@@ -1,0 +1,40 @@
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" th:href="@{/user/get-all}">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" th:each="items : ${listCategory}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false" th:text="${items.name}">
+
+                </a>
+                <div class="dropdown-menu">
+                    <div th:each="subcategory : ${items.detailCategoryDTOList}">
+                        <a class="dropdown-item"
+                           th:href="|@{/user/get-product-detailcategory?id-detail-category=}${subcategory.id}|"
+                           th:text="${subcategory.name}"></a>
+                    </div>
+
+                </div>
+            </li>
+
+        </ul>
+        <ul class="navbar-nav mr-auto">
+            <a class="nav-link dropdown-toggle" role="button"
+               aria-haspopup="true" aria-expanded="false" th:href="@{/user/go-to-cart}">Cart
+            </a>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/user/search-product}" action="get">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                   name="search-product">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<!--</html>-->
