@@ -21,16 +21,16 @@ type Query {
     findTeacher(id:Long) : TeacherEntity
 
 }
+
 type Page{
     total: Int
-    page: Int
-    size: Int
     pageable: Pageable
     content: [ClassEntity]
 }
 type Pageable{
     sort: String
-
+    number: String
+    size: Int
 }
 type StudentEntity {
     isn: Long

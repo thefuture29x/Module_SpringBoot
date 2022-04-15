@@ -30,7 +30,7 @@ public class ClassServiceIMPL implements BaseService<ClassEntity> {
         String sortBy = dataFetchingEnvironment.getArgument("sortBy");
         String order = dataFetchingEnvironment.getArgument("order");
 //        Sort sort1 = new Sort();
-        Pageable pageable = PageRequest.of(page - 1, size);
+        Pageable pageable = PageRequest.of(page, size);
 
         Page<ClassEntity> pageab = iClassRepository.findAll(pageable);
         return pageab;
