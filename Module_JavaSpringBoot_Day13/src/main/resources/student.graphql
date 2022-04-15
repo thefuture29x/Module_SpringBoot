@@ -1,0 +1,51 @@
+schema {
+    query: Query
+}
+
+type Query {
+    allStudent: [StudentEntity]
+    saveOrUpdateStudent(id: Long,title: String,publisher: String,e: String): StudentEntity
+    findStudent(id: Long): StudentEntity
+    deleteStudent(id: Long): StudentEntity
+
+    allClass:[ClassEntity]
+    saveClass(id:Long,name:String):ClassEntity
+    deleteClass(id:Long): ClassEntity
+    findClass(id:Long):ClassEntity
+
+    allClassWithPage(page:Int,size:Int): Page
+
+    allTeacher:[TeacherEntity]
+    saveOrUpdateTeacher(id:Long,name:String,id_class:Long) : TeacherEntity
+    deleteTeacher(id:Long) : TeacherEntity
+    findTeacher(id:Long) : TeacherEntity
+
+}
+type Page{
+    total: Int
+    page: Int
+    size: Int
+    pageable: Pageable
+    content: [ClassEntity]
+}
+type Pageable{
+    sort: String
+
+}
+type StudentEntity {
+    isn: Long
+    title: String
+    publisher: String
+    e: String
+}
+type TeacherEntity {
+    id: Long
+    name: String
+    classEntity:ClassEntity
+
+}
+type ClassEntity {
+    id: Long
+    name: String
+    teacherEntityList:[TeacherEntity]
+}

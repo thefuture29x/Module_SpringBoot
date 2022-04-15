@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>Module_JavaSpringBoot_Day12</artifactId>
+    <artifactId>Module_JavaSpringBoot_Day13</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Module_JavaSpringBoot_Day12</name>
-    <description>Module_JavaSpringBoot_Day12</description>
+    <name>Module_JavaSpringBoot_Day13</name>
+    <description>Module_JavaSpringBoot_Day13</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -20,10 +20,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,15 +37,26 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>5.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-tools</artifactId>
+            <version>5.2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-            <version>2.6.3</version>
-        </dependency>
-
 
     </dependencies>
 
