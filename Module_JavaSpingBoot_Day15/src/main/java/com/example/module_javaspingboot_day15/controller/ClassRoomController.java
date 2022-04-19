@@ -19,4 +19,9 @@ public class ClassRoomController {
         return classRoomRepository.findAll();
     }
 
+    @GetMapping("/test-get-classroom")
+    public Flux<ClassRoomEntity> testGetAll(){
+        return classRoomRepository.findAll();
+    }
+
 }
