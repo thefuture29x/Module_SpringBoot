@@ -16,12 +16,6 @@ public class TeacherServiceIMPL implements ITeacherService {
     @Autowired
     TeacherRepository teacherRepository;
 
-    @Override
-    public Flux<TeacherEntity> findAllTeacher() {
-        Flux<TeacherEntity> entityFlux = teacherRepository.findAllTeacherEntity();
-        List<TeacherEntity> list = entityFlux.collectList().block();
-        return null;
-    }
 
     @Override
     public Mono<TeacherEntity> save(TeacherDTO teacherDTO) {

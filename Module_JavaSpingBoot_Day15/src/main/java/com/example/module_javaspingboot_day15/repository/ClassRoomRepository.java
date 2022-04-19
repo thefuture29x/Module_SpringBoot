@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 @Repository
 public interface ClassRoomRepository extends ReactiveCrudRepository<ClassRoomEntity,Long> {
-    Flux<ClassRoomEntity> findAllBy(Pageable pageable);
+//    Flux<ClassRoomEntity> findAllBy(Pageable pageable);
 }
