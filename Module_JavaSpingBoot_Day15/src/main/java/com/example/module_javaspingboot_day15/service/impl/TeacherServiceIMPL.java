@@ -31,9 +31,5 @@ public class TeacherServiceIMPL implements ITeacherService {
         teacherEntity.setId_classroom(teacherDTO.getId_classroom());
         return teacherRepository.save(teacherEntity);
     }
-//    @Override
-//    public Flux<TeacherEntity> findAllTeacher() {
-//        Flux<TeacherEntity> entityFlux = teacherRepository.findAllTeacher();
-//        return null;
-//    }
+
 }

@@ -35,14 +35,14 @@ public class Response<T> {
         response.meta.total = data.getTotalElements();
         return response;
     }
-
+//  Hàm custom response hiển thị response body với đầy đủ thông tin data và thông tin cho pagination
     public static <T> Response<Flux<T>> ofSucceeded(List data, Pageable pageable, Long totalItem) {
         Response<Flux<T>> response = new Response<>();
-        response.data2 = data;
-        response.meta.code = OK_CODE;
-        response.meta.page = pageable.getPageNumber();
-        response.meta.size = pageable.getPageSize();
-        response.meta.total = totalItem;
+        response.data2 = data;                          // set list Teacher vào data2
+        response.meta.code = OK_CODE;                   // set status code
+        response.meta.page = pageable.getPageNumber();  // set page hiển thị trong response body từ giá trị pageable truyền từ controller
+        response.meta.size = pageable.getPageSize();    // set size hiển thị trong response body từ giá trị pageable truyền từ controller
+        response.meta.total = totalItem;                // set totalItem hiển thị trong response body từ giá trị truyền từ controller
         return response;
     }
 

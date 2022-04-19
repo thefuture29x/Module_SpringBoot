@@ -24,22 +24,22 @@ public class TeacherController {
 
     @GetMapping("/get-teacher")
     public Flux<TeacherEntity> getAll(Pageable pageable){
-        return teacherRepository.findAllBy(pageable);
+        return teacherRepository.findAllBy(pageable);// lấy ra danh sách tất cả Teacher với phân trang cơ bản
     }
 
     @GetMapping("/get-all-teacher")
     public Response<Flux<TeacherEntity>> getAllTC(Pageable pageable){
-        Flux<TeacherEntity> flux = teacherRepository.findAllBy(pageable);
-        Long totalItems = teacherRepository.count().block();
-        return Response.ofSucceeded(flux.toStream().collect(Collectors.toList()), pageable,totalItems);
+        Flux<TeacherEntity> flux = teacherRepository.findAllBy(pageable);// lấy ra danh sách Teacher đã phân trang
+        Long totalItems = teacherRepository.count().block();// lấy số phần tử Teacher
+        return Response.ofSucceeded(flux.toStream().collect(Collectors.toList()), pageable,totalItems);//customResponse hiển thị page,size,total
     }
 
     @PostMapping("/save-teacher")
     public Mono<TeacherEntity> save(@RequestBody TeacherDTO teacherDTO){
-        return iTeacherService.save(teacherDTO);
+        return iTeacherService.save(teacherDTO);// save hoặc update Teacher với giá trị truyền vào từ request body
     }
     @DeleteMapping("/delete")
     public Mono delete(@RequestBody Long id){
-        return teacherRepository.deleteById(id);
+        return teacherRepository.deleteById(id);// detele Teacher với id
     }
 }
