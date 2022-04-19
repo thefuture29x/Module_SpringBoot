@@ -32,4 +32,9 @@ public class ClassRoomController {
     public void delete(@RequestBody Long id){
     }
 
+    @GetMapping("/test-get-classroom")
+    public Flux<ClassRoomEntity> testGetAll(){
+        return classRoomRepository.findAll();
+    }
+
 }
