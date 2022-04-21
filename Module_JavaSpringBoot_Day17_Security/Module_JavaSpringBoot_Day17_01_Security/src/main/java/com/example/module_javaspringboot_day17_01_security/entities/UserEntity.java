@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -34,4 +35,7 @@ public class UserEntity {
     private boolean accountNonLocked;
     @Column(name = "failed_attempt")
     private int failedAttempt;
+
+    @Column(name = "lock_time")
+    private Date lockTime;
 }

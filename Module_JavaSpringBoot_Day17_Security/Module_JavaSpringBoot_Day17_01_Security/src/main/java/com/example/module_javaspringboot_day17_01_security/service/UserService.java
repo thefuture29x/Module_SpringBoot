@@ -9,9 +9,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserService implements UserDetailsService {
     public static final int MAX_FAILED_ATTEMPTS = 3;
+    private static final long LOCK_TIME_DURATION =  3 * 60 * 1000; // 3 minutes
     @Autowired
     UserRepository userRepository;
     @Override
@@ -35,23 +38,24 @@ public class UserService implements UserDetailsService {
 
     public void lock(UserEntity user) {
         user.setAccountNonLocked(false);
+        user.setLockTime(new Date());
         userRepository.save(user);
     }
-//
-//    public boolean unlockWhenTimeExpired(User user) {
-//        long lockTimeInMillis = user.getLockTime().getTime();
-//        long currentTimeInMillis = System.currentTimeMillis();
-//
-//        if (lockTimeInMillis + LOCK_TIME_DURATION < currentTimeInMillis) {
-//            user.setAccountNonLocked(true);
-//            user.setLockTime(null);
-//            user.setFailedAttempt(0);
-//
-//            repo.save(user);
-//
-//            return true;
-//        }
-//
-//        return false;
-//    }
+
+    public boolean unlockWhenTimeExpired(UserEntity user) {
+        long lockTimeInMillis = user.getLockTime().getTime();
+        long currentTimeInMillis = System.currentTimeMillis();
+
+        if (lockTimeInMillis + LOCK_TIME_DURATION < currentTimeInMillis) {
+            user.setAccountNonLocked(true);
+            user.setLockTime(null);
+            user.setFailedAttempt(0);
+
+            userRepository.save(user);
+
+            return true;
+        }
+
+        return false;
+    }
 }

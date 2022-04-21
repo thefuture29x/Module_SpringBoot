@@ -42,7 +42,11 @@ public class LoginFailedHandler extends SimpleUrlAuthenticationFailureHandler {
                 }
 
             } else if (!user.isAccountNonLocked()) {
-                exception = new LockedException("Your account has been unlocked. Please try to login again.");
+                if (userService.unlockWhenTimeExpired(user)) {
+                    exception = new LockedException("Your account has been unlocked. Please try to login again.");
+                }else{
+                    exception = new LockedException("Your account has been locked. Please try to login again about some minutes !");
+                }
             }
 
         }else {

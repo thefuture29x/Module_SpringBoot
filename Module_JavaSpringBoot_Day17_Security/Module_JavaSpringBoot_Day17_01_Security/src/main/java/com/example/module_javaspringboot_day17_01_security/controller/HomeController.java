@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -52,7 +53,7 @@ public class HomeController {
         }else{
             List<RoleEntity> roleEntities = new ArrayList<>();
             roleEntities.add(roleRepository.getById(2L));
-            userRepository.save(new UserEntity(null,name,passwordEncoder.encode(pass),roleEntities,true,true,0));
+            userRepository.save(new UserEntity(null,name,passwordEncoder.encode(pass),roleEntities,true,true,0,null));
             return "redirect:/home";
         }
     }

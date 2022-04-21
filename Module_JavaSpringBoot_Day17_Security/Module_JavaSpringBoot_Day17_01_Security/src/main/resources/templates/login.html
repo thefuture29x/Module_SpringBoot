@@ -8,7 +8,9 @@
 </head>
 <body>
 <div class="container">
-
+    <div th:if="${param.error}">
+        <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+    </div>
     <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
