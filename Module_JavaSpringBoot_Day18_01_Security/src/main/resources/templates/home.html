@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h2>Home Page</h2>
+
+
+
+<!--<div th:text="${userObj.roleEntityList.get(0)}">-->
+<!--&lt;!&ndash;    <button>READ</button>&ndash;&gt;-->
+<!--</div>-->
+<!--<div th:each="items : ${userObj.roleEntityList.get(0).permissionEntityList}"></div>-->
+<div th:each="items : ${userObj.roleEntityList.get(0).permissionEntityList}">
+    <div th:switch="${items.name}">
+        <div th:case="'CREATE'">
+            <button>CREATE</button>
+        </div>
+        <div th:case="'READ'">
+            <button>READ</button>
+        </div>
+        <div th:case="'EDIT'">
+            <button>EDIT</button>
+        </div>
+        <div th:case="'DELETE'">
+            <button>DELETE</button>
+        </div>
+        <div th:case="'FIND'">
+            <button>FIND</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
