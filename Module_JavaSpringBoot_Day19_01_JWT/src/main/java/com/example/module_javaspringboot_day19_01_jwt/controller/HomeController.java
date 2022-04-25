@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/authen")
 public class HomeController {
@@ -40,7 +41,18 @@ public class HomeController {
         );
         CustomerUserDetails customerUserDetails = (CustomerUserDetails) authentication.getPrincipal();
         String jwt= jwtTokenProvider.generateToken(customerUserDetails);
-        return ResponseEntity.ok(jwt);
+
+        return ResponseEntity.ok().body(new LoginResponse(
+                customerUserDetails.getUserEntity().getId(),
+                customerUserDetails.getUsername(),
+                jwt,
+                new LoginResponse().getTokenType()));
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST,value = "/test")
+    public String testPostMapping(){
+        return "Ahihi";
     }
 
     @GetMapping("/add")

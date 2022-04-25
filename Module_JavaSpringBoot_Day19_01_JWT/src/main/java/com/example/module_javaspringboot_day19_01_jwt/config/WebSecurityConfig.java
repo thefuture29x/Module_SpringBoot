@@ -33,28 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(1296000);
-        http.authorizeRequests()
-//                .antMatchers("/", "/home", "/add", "/register-user","/register").permitAll()
-//                .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                .antMatchers("/authen/login","/authen/add").permitAll()
-//                .anyRequest()
-//                .authenticated()
+        http.csrf().disable()
+                .cors()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .usernameParameter("username")
-//                    .defaultSuccessUrl("/admin")
-//                .successHandler(loginSuccessHandler)
-//                    .failureHandler(loginFailedHandler)
-                .permitAll()
-                .and()
-                .logout()
-//                    .logoutSuccessUrl("/logout")
-                .permitAll()
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/403");
+                .authorizeRequests()
+                .antMatchers("/authen/login","/authen/add","/authen/test").permitAll()
+                .anyRequest().authenticated();
     }
 
 }
