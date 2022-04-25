@@ -7,16 +7,14 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class CustomerUserService implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     UserEntity userEntity;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

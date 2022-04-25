@@ -1,11 +1,12 @@
 package com.example.module_javaspringboot_day19_02_jwt.jwt;
 
-import com.example.module_javaspringboot_day19_02_jwt.service.UserService;
+import com.example.module_javaspringboot_day19_02_jwt.service.UserDetailsServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -22,20 +23,27 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
     @Autowired
-    UserService userService;
+    UserDetailsServiceImpl userDetailsService;
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwtToken = getJwtFromRequest(request);
-        if (jwtToken != null){
-            Long userID = jwtTokenProvider.getUserIdFromJWT(jwtToken,request);
-            UserDetails userDetails = userService.loadUserByID(userID);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails,null,userDetails.getAuthorities()
-            );
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        try{
+            if (jwtToken != null && jwtTokenProvider.validateJwtToken(jwtToken)){
+                Long userID = jwtTokenProvider.getUserIdFromJWT(jwtToken,request);
+                UserDetails userDetails = userDetailsService.loadUserByID(userID);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails,null,userDetails.getAuthorities()
+                );
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
+            }
+        }catch (Exception e){
+            logger.error("Cannot set user authentication: {}", e);
         }
+
         filterChain.doFilter(request,response);
     }
 
