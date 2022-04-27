@@ -23,6 +23,7 @@ public class MailService {
                               String filePath,
                               String content,
                               String url,
+                              String tokenString,
                               Object model){
         final Context ctx = new Context(LocaleContextHolder.getLocale());
         ctx.setVariable("model",model);
@@ -36,9 +37,10 @@ public class MailService {
                 e.printStackTrace();
             }
             mimeMessageHelper.setSubject(subject);
-
-            String codeReset = "PhongAhihi123";
-            String textContent = "<h3 style='color:red;'> " +content+ " </br> "+codeReset+" </h3>";
+            String resetPasswordString = "http://localhost:8080/reset_password?token=" + tokenString;
+            String textContent = "<h3> " +content+ " </h3>"
+                    + "<p>Click the link below to change your password:</p>"
+                    + "<p><a href=\"" + resetPasswordString + "\">Change my password</a></p>";
             mimeMessageHelper.setText(textContent,true);
 
             this.javaMailSender.send(mesasge);
