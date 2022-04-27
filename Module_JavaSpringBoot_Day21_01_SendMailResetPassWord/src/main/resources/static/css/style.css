@@ -19,7 +19,7 @@ main {
 
 footer {
     height: 10vh;
-    background-color: #ffffff;
+    background-color: pink;
 }
 
 .row {
@@ -86,7 +86,7 @@ footer {
 }
 
 .colm-form .form-container .btn-login {
-    background-color: #1877f2;
+    background-color: pink;
     border: none;
     border-radius: 6px;
     font-size: 20px;
@@ -97,7 +97,7 @@ footer {
 
 .colm-form .form-container a {
     display: block;
-    color: #1877f2;
+    color: black;
     font-size: 14px;
     text-decoration: none;
     padding: 10px 0 20px;
@@ -109,7 +109,7 @@ footer {
 }
 
 .colm-form .form-container .btn-new {
-    background-color: #42b72a;
+    background-color: pink;
     border: none;
     border-radius: 6px;
     font-size: 17px;
