@@ -23,6 +23,8 @@ public class ForgotPasswordController {
     IUserService iUserService;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    IUserRepository iUserRepository;
 
     @GetMapping("/forgot-password")
     public String getForgotPasswordForm(){
@@ -31,8 +33,14 @@ public class ForgotPasswordController {
 
     @PostMapping("/forgot-password")
     public String forgotPassword(@RequestParam(name = "email") String email,Model model){
-        defaultSendMailService.sendMailResetPassword(email);
-        model.addAttribute("message","We have sent a reset password link to your email. Please check.");
+        UserEntity userEntity = iUserRepository.findByEmail(email);
+        if (userEntity != null){
+            defaultSendMailService.sendMailResetPassword(email);
+            model.addAttribute("message","We have sent a reset password link to your email. Please check.");
+        }else {
+            model.addAttribute("message","User Invalid");
+        }
+
         return "forgot_password_form";
     }
     @GetMapping("/reset_password")
