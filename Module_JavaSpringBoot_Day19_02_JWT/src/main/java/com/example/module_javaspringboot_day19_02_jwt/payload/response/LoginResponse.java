@@ -1,4 +1,4 @@
-package com.example.module_javaspringboot_day19_02_jwt.payload;
+package com.example.module_javaspringboot_day19_02_jwt.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +18,6 @@ public class LoginResponse {
     private String accessToken;
     private String tokenType ="Bearer";
     private List<String> role;
+    private String refreshToken;
 
 }

@@ -1,5 +1,7 @@
 package com.example.module_javaspringboot_day19_02_jwt.jwt;
 
+import com.example.module_javaspringboot_day19_02_jwt.entities.UserEntity;
+import com.example.module_javaspringboot_day19_02_jwt.repository.IUserRepository;
 import com.example.module_javaspringboot_day19_02_jwt.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     JwtTokenProvider jwtTokenProvider;
     @Autowired
     UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    IUserRepository iUserRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
     @Override
@@ -31,8 +35,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String jwtToken = getJwtFromRequest(request);
         try{
             if (jwtToken != null && jwtTokenProvider.validateJwtToken(jwtToken)){
-                Long userID = jwtTokenProvider.getUserIdFromJWT(jwtToken,request);
-                UserDetails userDetails = userDetailsService.loadUserByID(userID);
+
+//                Long userID = jwtTokenProvider.getUserIdFromJWT(jwtToken,request);
+                String username = jwtTokenProvider.getUserIdFromJWT(jwtToken,request);
+                UserEntity userEntity = iUserRepository.findByUsername(username);
+                UserDetails userDetails = userDetailsService.loadUserByID(userEntity.getId());
+
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails,null,userDetails.getAuthorities()
                 );
@@ -51,7 +59,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         String token = request.getHeader("Authorization");
         if (StringUtils.hasText(token) && token.startsWith("Bearer ")){
-//            return token.substring(7,token.length());
             return token.substring(7);
         }
         return null;

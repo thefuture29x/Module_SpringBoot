@@ -1,14 +1,19 @@
 package com.example.module_javaspringboot_day19_02_jwt.controller;
 
+import com.example.module_javaspringboot_day19_02_jwt.entities.RefreshTokenEntity;
 import com.example.module_javaspringboot_day19_02_jwt.entities.RoleEntity;
 import com.example.module_javaspringboot_day19_02_jwt.entities.UserEntity;
 import com.example.module_javaspringboot_day19_02_jwt.jwt.JwtTokenProvider;
-import com.example.module_javaspringboot_day19_02_jwt.payload.LoginRequest;
-import com.example.module_javaspringboot_day19_02_jwt.payload.LoginResponse;
+import com.example.module_javaspringboot_day19_02_jwt.payload.request.LoginRequest;
+import com.example.module_javaspringboot_day19_02_jwt.payload.request.RefreshTokenRequest;
+import com.example.module_javaspringboot_day19_02_jwt.payload.response.LoginResponse;
+import com.example.module_javaspringboot_day19_02_jwt.payload.response.RefreshTokenResponse;
 import com.example.module_javaspringboot_day19_02_jwt.repository.IRoleRepository;
 import com.example.module_javaspringboot_day19_02_jwt.repository.IUserRepository;
+import com.example.module_javaspringboot_day19_02_jwt.service.RefreshTokenService;
 import com.example.module_javaspringboot_day19_02_jwt.service.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +38,10 @@ public class HomeController {
     PasswordEncoder passwordEncoder;
     @Autowired
     IRoleRepository iRoleRepository;
+    @Autowired
+    RefreshTokenService refreshTokenService;
+
+
     @GetMapping("/test")
     public String getTest(){
         return "Test Content";
@@ -48,19 +57,29 @@ public class HomeController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        String jwtToken = jwtTokenProvider.generateToken(userDetails);
+        String jwtToken = jwtTokenProvider.generateTokenFormUserName(userDetails.getUsername());
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-
+        RefreshTokenEntity refreshTokenEntity = refreshTokenService.createRefreshToken(userDetails.getUserEntity().getId());
         return LoginResponse.builder()
                 .id(userDetails.getUserEntity().getId())
                 .username(userDetails.getUsername())
                 .accessToken(jwtToken)
                 .tokenType(new LoginResponse().getTokenType())
                 .role(roles)
+                .refreshToken(refreshTokenEntity.getRefreshToken())
                 .build();
+    }
+
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> createRefreshToken(@RequestBody RefreshTokenRequest request){
+        RefreshTokenEntity refreshTokenEntity = refreshTokenService.findByRefreshToken(request.getRefreshToken());
+        RefreshTokenEntity refreshTokenVerifyExpiration = refreshTokenService.verifyExpiration(refreshTokenEntity);
+        UserEntity userEntity = refreshTokenVerifyExpiration.getUserEntity();
+        String token = jwtTokenProvider.generateTokenFormUserName(userEntity.getUsername());
+        return ResponseEntity.ok().body(new RefreshTokenResponse(token,request.getRefreshToken()));
     }
 
     @GetMapping("/add")

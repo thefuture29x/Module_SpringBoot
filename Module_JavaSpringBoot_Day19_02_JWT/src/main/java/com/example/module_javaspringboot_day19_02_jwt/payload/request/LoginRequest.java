@@ -1,4 +1,4 @@
-package com.example.module_javaspringboot_day19_02_jwt.payload;
+package com.example.module_javaspringboot_day19_02_jwt.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

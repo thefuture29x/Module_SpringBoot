@@ -17,8 +17,10 @@ import java.util.Date;
 public class JwtTokenProvider{
     @Value("${jwt.app.JWT_SECRET}")
     private String JWT_SECRET;
-    @Value("${jwt.app.JWT_EXPIRATION}")
-    private int JWT_EXPIRATION;
+//    @Value("${jwt.app.JWT_EXPIRATION}")
+    @Value("${bezkoder.app.jwtExpirationMs}")
+//    private Long JWT_EXPIRATION;
+    private Long JWT_EXPIRATION;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
@@ -32,15 +34,31 @@ public class JwtTokenProvider{
                 .signWith(SignatureAlgorithm.HS512,JWT_SECRET)
                 .compact();
     }
-
-    public Long getUserIdFromJWT(String token, HttpServletRequest request){
+    public String generateTokenFormUserName(String username){
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION);
+        return Jwts.builder()
+                .setSubject(username)
+                .setExpiration(expiryDate)
+                .setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS512,JWT_SECRET)
+                .compact();
+    }
+    public String getUserIdFromJWT(String token, HttpServletRequest request){
         Claims claims = Jwts.parser()
                 .setSigningKey(JWT_SECRET)
                 .parseClaimsJws(token)
                 .getBody();
-
-        return Long.parseLong(claims.getSubject());
+        return claims.getSubject();
     }
+//    public Long getUserIdFromJWT(String token, HttpServletRequest request){
+//        Claims claims = Jwts.parser()
+//                .setSigningKey(JWT_SECRET)
+//                .parseClaimsJws(token)
+//                .getBody();
+//        String username = claims.getSubject();
+//        return Long.parseLong(claims.getSubject());
+//    }
 
     public Date generateExpirationDate() {
         return new Date(System.currentTimeMillis() + JWT_EXPIRATION);
