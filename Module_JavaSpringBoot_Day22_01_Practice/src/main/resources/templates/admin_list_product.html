@@ -24,6 +24,7 @@
             <th scope="col">Amount</th>
             <th scope="col">Description</th>
             <th scope="col">Category</th>
+            <th scope="col">NameFileImage</th>
             <th scope="col" colspan="2"></th>
         </tr>
         </thead>
@@ -36,6 +37,7 @@
             <td th:text="${items.amount}"></td>
             <td th:text="${items.description}"></td>
             <td th:text="${items.categoryEntity.name}"></td>
+            <td th:text="${items.image}"></td>
             <td>
                 Edit
             </td>

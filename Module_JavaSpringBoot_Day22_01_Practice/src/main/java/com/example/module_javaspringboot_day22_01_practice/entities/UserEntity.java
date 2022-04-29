@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,6 +21,7 @@ public class UserEntity {
     private String username;
     private String email;
     private String password;
+
     private boolean enabled;
     @Column(name = "reset_password_token")
     private String resetPassWordToken;
@@ -34,6 +36,7 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private List<RoleEntity> roleEntityList;
+
 
 
 }

@@ -69,7 +69,7 @@ public class UserController {
         model.addAttribute("message","Add product to cart successfull !");
 
         model.addAttribute("listProduct",iProductService.findAllProduct());
-        return "home";
+        return "redirect:/home";
     }
     @GetMapping("/go-to-cart")
     public String goToCart(HttpSession session, Model model){

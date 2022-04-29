@@ -4,6 +4,8 @@ import com.example.module_javaspringboot_day22_01_practice.entities.ProductEntit
 import com.example.module_javaspringboot_day22_01_practice.repository.IProductRepository;
 import com.example.module_javaspringboot_day22_01_practice.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,5 +22,10 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ProductEntity findById(Long id) {
         return iProductRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<ProductEntity> findAllProduct(Pageable pageable) {
+        return iProductRepository.findAll(pageable);
     }
 }
