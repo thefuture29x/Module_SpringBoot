@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" th:href="|@{img/icons/}icon-48x48.png|"/>
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
+
+    <title>List Product</title>
+
+    <link th:href="@{css/app.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragment/admin_nav_right.html"></div>
+
+    <div class="main">
+        <div th:replace="fragment/admin_header.html"></div>
+
+
+        <main style="margin-left: 20px;">
+            <div class="container-fluid p-0">
+                <div th:if="${message != null}">
+                    <p class="text-success">[[${message}]]</p>
+                </div>
+
+                <h1 class="h3 mb-3"><strong>List User</strong></h1>
+                <div class="row">
+
+                    <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                        <div class="card flex-fill">
+                            <table class="table table-hover my-0">
+                                <thead>
+                                <tr>
+                                    <th >Id</th>
+                                    <th >Username</th>
+                                    <th >Email</th>
+                                    <th >AuthProvider</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="items : ${listUser}">
+                                    <td  th:text="${items.id}"></td>
+                                    <td  th:text="${items.username}"></td>
+                                    <td  th:text="${items.email}"></td>
+                                    <td  th:text="${items.authProvider}"></td>
+                                    <td th:if="${items.username == 'ADMIN'}"></td>
+                                    <td th:unless="${items.username == 'ADMIN'}">
+                                        <form th:action="@{/admin/user/enabled}" method="post">
+                                            <button type="submit" th:class="${items.enabled != true} ? 'btn btn-primary':'btn btn-danger'" th:text="${items.enabled != true} ? 'Disabled':'Enabled'" th:value="${items.id}" name="id_user"></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div th:replace="fragment/admin_footer.html"></div>
+
+    </div>
+</div>
+
+<script th:src="@{js/app.js}"></script>
+
+
+</body>
+
+</html>

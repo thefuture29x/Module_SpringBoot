@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand navbar-light navbar-bg">
+    <a class="sidebar-toggle js-sidebar-toggle">
+        <i class="hamburger align-self-center"></i>
+    </a>
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown" style="margin-left: 10px;margin-right: 10px;">
+                <span class="text-dark">
+                    <a th:href="@{/home}"><img alt="" th:src="|@{img/icons/}icon-48x48.png|"></a>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown" th:unless="${userLogin != null}">
+                <a th:href="@{/login}">Sign in   |     </a>
+            </li>
+            <li class="nav-item dropdown" th:unless="${userLogin != null}">
+                <a th:href="@{/sign-up}">Sign up   |    </a>
+            </li>
+<!--            <li class="nav-item dropdown" th:if="${userLogin != null}">-->
+<!--                <a th:href="@{/logout}">Log out   |     </a>-->
+<!--            </li>-->
+
+            <li class="nav-item dropdown" th:if="${userLogin != null}">
+                <a class="nav-icon dropdown-toggle" href="" id="alertsDropdown" data-bs-toggle="dropdown">
+                    <div class="position-relative">
+                        <a th:href="@{/user/go-to-cart}">
+                            <i class="align-middle" data-feather="shopping-cart"></i>
+                            <span th:if="${cartItems > 0}" class="indicator" th:text="${cartItems}"></span>
+                        </a>
+
+                    </div>
+                </a>
+
+
+            </li>
+
+            <li class="nav-item dropdown" th:if="${userLogin != null}">
+                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                    <i class="align-middle" data-feather="settings"></i>
+                </a>
+
+                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                    <img th:src="|@{/avatars/}${userLogin.avatar}|" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
+                    <span class="text-dark" th:text="${userLogin.username}"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+<!--                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"-->
+<!--                                                                          data-feather="user"></i> Profile</a>-->
+<!--                    <div class="dropdown-divider"></div>-->
+                    <a class="dropdown-item" th:href="@{/logout}">Log out</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown" th:unless="${userLogin != null}">
+                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                    <i class="align-middle" data-feather="settings"></i>
+                </a>
+
+                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                    <img th:src="@{/avatars/avatar-default.jpeg}" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
+                    <span class="text-dark">Anonymous</span>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</nav>

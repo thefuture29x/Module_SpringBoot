@@ -1,0 +1,45 @@
+<nav id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" th:href="@{/home}">
+            <span class="align-middle">Seabreeze Book</span>
+        </a>
+
+        <ul class="sidebar-nav">
+            <li class="sidebar-header">
+                Pages
+            </li>
+
+            <li class="sidebar-item active">
+                <a class="sidebar-link" th:href="@{/admin/home}">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" th:href="@{/admin/statistical}">
+                    <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Statistical</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" th:href="@{/admin/user/list}">
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">List User</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" th:href="@{/admin/product/list}">
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">List Product</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" th:href="@{/logout}">
+                    <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">Logout</span>
+                </a>
+            </li>
+
+
+
+        </ul>
+
+    </div>
+</nav>

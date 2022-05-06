@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" th:href="|@{img/icons/}icon-48x48.png|"/>
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
+
+    <title>Recent Movement</title>
+
+    <link th:href="@{css/app.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="wrapper">
+    <div th:replace="fragment/admin_nav_right.html"></div>
+
+    <div class="main">
+        <div th:replace="fragment/admin_header.html"></div>
+
+
+        <main class="content">
+            <div class="container-fluid p-0">
+
+                <h1 th:if="${productObj.id == null}" class="h3 mb-3"><strong>Create new Product</strong></h1>
+                <h1 th:unless="${productObj.id == null}" class="h3 mb-3"><strong>Edit Product</strong></h1>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="m-sm-4">
+                            <form th:action="@{/admin/product/save}" method="post" th:object="${productObj}" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input class="form-control form-control-lg" type="text" th:field="*{name}" name="name" placeholder="Enter product name" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Description</label>
+                                    <input class="form-control form-control-lg" type="text" th:field="*{description}" name="description" placeholder="Enter product description" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">OldPrice</label>
+                                    <input class="form-control form-control-lg" type="text" th:field="*{oldPrice}" name="oldPrice" placeholder="Enter product old price" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">NewPrice</label>
+                                    <input class="form-control form-control-lg" type="text" th:field="*{newPrice}" name="newPrice" placeholder="Enter product new price" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">ImportPrice</label>
+                                    <input class="form-control form-control-lg" type="text" th:field="*{importPrice}" name="importPrice" placeholder="Enter product import price" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Amount</label>
+                                    <input class="form-control form-control-lg" type="text" th:field="*{amount}" name="amount" placeholder="Enter product amount" />
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-md-6">
+                                        <label class="form-label" >Image</label>
+                                        <input class="form-control form-control-lg" type="file" id="image_pro" name="image-product" accept="image/png,image/jpeg" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img id="img_pro"  alt="Image" style="width: 150px; height: 150px" th:src="|@{/images/}${productObj.image}|"/>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-control form-control-lg" th:field="*{categoryDTO.id}">
+                                        <div th:each="cates : ${listCategory}" >
+                                            <div th:if="${productObj.categoryDTO.id == cates.id}">
+                                                <option th:text="${cates.name}" th:value="${cates.id}" selected></option>
+                                            </div>
+                                            <div th:unless="${productObj.categoryDTO.id == cates.id}">
+                                                <option th:text="${cates.name}" th:value="${cates.id}"></option>
+                                            </div>
+                                        </div>
+                                    </select>
+                                </div>
+                                    <input type="hidden" th:field="*{id}" name="id">
+                                    <input type="hidden" th:field="*{image}" name="image">
+
+                                <div class="text-center mt-3">
+                                     <button type="submit" class="btn btn-lg btn-primary">ADD</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div th:replace="fragment/admin_footer.html"></div>
+
+    </div>
+</div>
+
+<script th:src="@{js/app.js}"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+<script>
+    $('#image_pro').change(function() {
+        showImageThumbnail(this);
+    });
+    function showImageThumbnail(fileInput) {
+        file = fileInput.files[0];
+        reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#img_pro').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+    }
+</script>
+
+</body>
+
+</html>

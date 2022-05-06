@@ -36,10 +36,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         try{
             if (jwtToken != null && jwtTokenProvider.validateJwtToken(jwtToken)){
 
-//                Long userID = jwtTokenProvider.getUserIdFromJWT(jwtToken,request);
-                String username = jwtTokenProvider.getUserIdFromJWT(jwtToken,request);
-                UserEntity userEntity = iUserRepository.findByUsername(username);
-                UserDetails userDetails = userDetailsService.loadUserByID(userEntity.getId());
+                String username = jwtTokenProvider.getUserIdFromJWT(jwtToken);
+//                Long ID_user = Long.valueOf(jwtTokenProvider.getUserIdFromJWT(jwtToken));
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+//                UserDetails userDetails = userDetailsService.loadUserByID(ID_user);
 
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails,null,userDetails.getAuthorities()
